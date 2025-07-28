@@ -20,7 +20,7 @@ class Thermometer:
         while humidity is None:
             humidity = self.dht_device.humidity
         
-        return {"temp": temperature_f, "humidity": humidity}
+        return {"temperature": temperature_f, "humidity": humidity}
 
     def close(self):
         self.dht_device.exit()
