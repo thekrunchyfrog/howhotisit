@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 
 @app.route("/garage", methods=["GET"])
-async def get_garage_data():
+def get_garage_data():
     tempList = []
 
     for x in range(0, 3):
@@ -16,7 +16,7 @@ async def get_garage_data():
         except RuntimeError as err:
             continue
         tempList.append(weather)
-        await time.sleep(2)
+        time.sleep(2)
 
     garage_data = tempList[1]
     return jsonify(garage_data)
