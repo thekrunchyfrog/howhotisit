@@ -33,7 +33,7 @@ def readTemp():
     temperature_f = temperature_c * (9 / 5) + 32
         
     while humidity is None:
-        humidity = dht_device.humidity
+         humidity = dht_device.humidity
         
     dht_device.exit()
         
