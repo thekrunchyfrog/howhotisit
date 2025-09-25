@@ -40,10 +40,11 @@ def readTemp():
 
 
 def main():
+    db_file = "/home/rich/Repos/howhotisit/temphistory.db"
     curr_datetime = datetime.now()
     data = get_garage_data(3)
-    conn = TemperatureDB("temphistory.db")
-    conn.createTemp(datetime, data["temperature"], data["humidity"], "garage")
+    conn = TemperatureDB(db_file)
+    conn.createTemp(curr_datetime, data["temperature"], data["humidity"], "garage")
     conn.close()
 
 
