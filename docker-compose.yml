@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: howhotisit
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./temphistory.db:/app/temphistory.db
+    restart: unless-stopped
+    privileged: true
+    environment:
+      - FLASK_ENV=production
