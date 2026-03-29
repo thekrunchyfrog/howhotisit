@@ -4,7 +4,7 @@ from flask import Flask, jsonify
 app = Flask(__name__)
 
 
-@app.route("/garage", methods=["GET"])
+@app.route("/rack", methods=["GET"])
 def get_garage_data():
     conn = TemperatureDB("temphistory.db")
     garage_data = conn.readLastTemp()

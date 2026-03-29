@@ -36,7 +36,7 @@ def readTemp():
 
     dht_device.exit()
 
-    return {"temperature": temperature_f, "humidity": humidity}
+    return {"temperature_f": temperature_f, "temperature_c": temperature_c, "humidity": humidity}
 
 
 def main():
@@ -44,7 +44,7 @@ def main():
     curr_datetime = datetime.now()
     data = get_garage_data(3)
     conn = TemperatureDB(db_file)
-    conn.createTemp(curr_datetime, data["temperature"], data["humidity"], "garage")
+    conn.createTemp(curr_datetime, data["temperature_c"], data["temperature_f"], data["humidity"], "rack")
     conn.close()
 
 
