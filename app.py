@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route("/rack", methods=["GET"])
 def get_garage_data():
-    conn = TemperatureDB("temphistory.db")
+    conn = TemperatureDB("data/temphistory.db")
     garage_data = conn.readLastTemp()
     return garage_data
 

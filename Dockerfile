@@ -1,19 +1,24 @@
 # Build stage
-FROM python:3.12-slim AS builder
+FROM dtcooper/raspberrypi-os:python AS builder
 
 WORKDIR /app
 
 # Install build dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    gcc \
-    && rm -rf /var/lib/apt/lists/*
+    gcc swig build-essential \
+    && rm -rf /var/lib/apt/lists/* \
+    && wget http://abyz.me.uk/lg/lg.zip \
+    && unzip lg.zip \
+    && cd lg \
+    && make install \
+    && cd .
 
 # Copy requirements and install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir --user -r requirements.txt
 
 # Production stage
-FROM python:3.12-slim
+FROM dtcooper/raspberrypi-os:python
 
 WORKDIR /app
 
@@ -34,14 +39,10 @@ COPY sensor.py .
 COPY temperaturedb.py .
 
 # Create volume for database
-VOLUME /app
+VOLUME /app/data
 
 # Expose port
 EXPOSE 8080
-
-# Run as non-root user for security
-RUN useradd -m appuser && chown -R appuser:appuser /app
-USER appuser
 
 # Run the Flask app
 CMD ["python", "-m", "flask", "--app", "app", "run", "--host=0.0.0.0", "--port=8080"]
